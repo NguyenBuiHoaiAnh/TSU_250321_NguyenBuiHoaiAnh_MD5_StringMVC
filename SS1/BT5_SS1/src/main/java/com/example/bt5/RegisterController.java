@@ -7,7 +7,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-
 @WebServlet("/RegisterController")
 public class RegisterController extends HttpServlet {
     @Override
@@ -49,13 +48,9 @@ public class RegisterController extends HttpServlet {
             hasError = true;
         }
 
-        if (hasError) {
-            req.getRequestDispatcher("index.jsp").forward(req, resp);
-        } else {
+        if (!hasError) {
             req.setAttribute("success", "Registered Successfully");
-            req.getRequestDispatcher("register.jsp").forward(req, resp);
         }
-
-
+        req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
 }
