@@ -6,7 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet("userLogin")
+@WebServlet("/login")
 public class HelloServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -15,6 +15,7 @@ public class HelloServlet extends HttpServlet {
 
         req.setAttribute("name", name);
         req.setAttribute("email", email);
-        req.getRequestDispatcher("userInfo").forward(req, resp);
+        req.getRequestDispatcher("userInfo.jsp").forward(req, resp);
+
     }
 }

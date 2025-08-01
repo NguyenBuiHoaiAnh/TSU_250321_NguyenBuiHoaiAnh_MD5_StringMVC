@@ -7,7 +7,7 @@
 <body>
 <h1>Nhập Thông Tin Người Dùng</h1><br/>
 
-<form action="userLogin" method="post">
+<form action="login" method="post">
     <label>Tên</label><br>
     <input name="name" type="text"><br>
 
