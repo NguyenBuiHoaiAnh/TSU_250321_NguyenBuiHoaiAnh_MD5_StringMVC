@@ -6,6 +6,6 @@
 </head>
 <body>
 <h2>Có lỗi trong quá trình thực hiện, vui lòng thử lại</h2>
-<a href="Category.jsp">Come Back</a>
+<a href="CategoryController?action=findAll">Come Back</a>
 </body>
 </html>

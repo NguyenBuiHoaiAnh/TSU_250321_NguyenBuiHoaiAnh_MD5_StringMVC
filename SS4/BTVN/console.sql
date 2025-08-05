@@ -9,6 +9,18 @@ create table Category
     status      bit default 1
 );
 
+create table Product
+(
+    id          int primary key auto_increment,
+    name        varchar(100),
+    description varchar(255),
+    category_id int,
+    constraint fk_p_category_id
+    foreign key (category_id)
+        references Category (id)
+);
+
+
 DELIMITER &&
 create procedure display_category()
 begin
@@ -60,8 +72,21 @@ create procedure delete_category(
     id_in int
 )
 begin
-    delete
-    from Category
-    where id = id_in;
+    declare count_product_id int default 0;
+
+    select count(*)
+    into count_product_id
+    from Product
+    where category_id = id_in;
+
+    if count_product_id = 0 then
+        delete
+        from Category
+        where id = id_in;
+    else
+        update Category
+        set status = 0
+        where id = id_in;
+    end if;
 end &&
 DELIMITER &&

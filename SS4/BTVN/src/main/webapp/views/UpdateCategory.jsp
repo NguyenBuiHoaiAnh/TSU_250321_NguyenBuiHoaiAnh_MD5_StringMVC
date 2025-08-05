@@ -62,8 +62,8 @@
     <label for="description">Description</label>
     <input type="text" id="description" name="description" value="${category.description}"/><br>
     <label for="active">Status</label>
-    <input type="radio" id="active" name="status" value="true" ${category.status?"checked":""}/><label for="active">Active</label>
-    <input type="radio" id="inActive" name="status" value="false" ${category.status?"":"checked"}/><label for="inActive">InActive</label><br>
+    <label for="active">Active</label><input type="radio" id="active" name="status" value="true" ${category.status?"checked":""}/>
+    <label for="inActive">InActive</label><input type="radio" id="inActive" name="status" value="false" ${category.status?"":"checked"}/><br>
     <input type="submit" value="Update"/>
 </form>
 </body>
