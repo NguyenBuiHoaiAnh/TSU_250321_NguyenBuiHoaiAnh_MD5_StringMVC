@@ -17,6 +17,7 @@ public interface ScheduleService {
 
     boolean updateSchedules(Schedule schedule);
 
+    // Delete
     boolean deleteSchedules(int id);
 
 }

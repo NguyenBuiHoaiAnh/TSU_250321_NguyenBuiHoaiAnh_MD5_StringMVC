@@ -15,28 +15,32 @@ public class ScheduleServiceImp implements ScheduleService {
         scheduleDao = new ScheduleDaoImp();
     }
 
+    // Display
     @Override
     public List<Schedule> getAllSchedules() {
         return scheduleDao.getAllSchedule();
     }
 
+    // Add
     @Override
     public boolean addSchedules(Schedule schedule) {
         return scheduleDao.addSchedules(schedule);
     }
 
+    // Update
     @Override
     public Schedule getSchedulesById(int id) {
-        return null;
+        return scheduleDao.getScheduleById(id);
     }
 
     @Override
     public boolean updateSchedules(Schedule schedule) {
-        return false;
+        return scheduleDao.updateSchedule(schedule);
     }
 
+    // Delete
     @Override
     public boolean deleteSchedules(int id) {
-        return false;
+        return scheduleDao.deleteSchedules(id);
     }
 }

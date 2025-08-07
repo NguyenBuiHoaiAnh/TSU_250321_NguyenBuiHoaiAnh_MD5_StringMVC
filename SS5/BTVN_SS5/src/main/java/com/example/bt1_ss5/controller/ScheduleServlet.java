@@ -42,7 +42,7 @@ public class ScheduleServlet extends HttpServlet {
             addSchedules(req, resp);
         } else if (action.equals("Update")) {
             // Update
-//            updateMovie(req, resp);
+            updateSchedules(req, resp);
         }
     }
 
@@ -59,13 +59,21 @@ public class ScheduleServlet extends HttpServlet {
 
         } else if (action.equals("initUpdate")) {
             // Find by ID (update)
-            int movieID = Integer.parseInt(req.getParameter("id"));
-            Schedule schedule = scheduleService.getSchedulesById(movieID);
+            int scheduleID = Integer.parseInt(req.getParameter("id"));
+
+            Schedule schedule = scheduleService.getSchedulesById(scheduleID);
+
+            List<ScreenRoom> screenRoomList = screenRoomService.getScreenRooms();
+            List<Movie> movieList = moviesService.findAllMovies();
+
+            req.setAttribute("screenRoomList", screenRoomList);
+            req.setAttribute("movieList", movieList);
+
             req.setAttribute("schedule", schedule);
-            req.getRequestDispatcher("views/Movies/formUpdateMovie.jsp").forward(req, resp);
+            req.getRequestDispatcher("views/ScheduleAndScrRooms/editSchedule.jsp").forward(req, resp);
         } else if (action.equals("Delete")) {
             // Delete
-//            deleteMovie(req, resp);
+            deleteSchedules(req, resp);
         }
     }
 
@@ -109,37 +117,45 @@ public class ScheduleServlet extends HttpServlet {
             req.getRequestDispatcher("views/ScheduleAndScrRooms/error.jsp").forward(req, resp);
         }
     }
-//
-//    // Update And Delete
-//    public void updateMovie(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        //Thực hiện cập nhật danh mục
-//        //1. Lấy dữ liệu trên form
-//        Movie movie = new Movie();
-//        movie.setId(Integer.parseInt(req.getParameter("id")));
-//        movie.setTitle(req.getParameter("title"));
-//        movie.setDirector(req.getParameter("director"));
-//        movie.setGenre(req.getParameter("genre"));
-//        movie.setDescription(req.getParameter("description"));
-//        movie.setDuration(req.getParameter("duration"));
-//        movie.setLanguage(req.getParameter("language"));
-//
-//        //2. Gọi service thực hiện cập nhật
-//        boolean result = scheduleService.updateSchedules(movie);
-//        //3. Xử lý kết quả
-//        if (result) {
-//            displaySchedule(req, resp);
-//        } else {
-//            req.getRequestDispatcher("views/Movies/error.jsp").forward(req, resp);
-//        }
-//    }
-//
-//    public void deleteMovie(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        int deleteID = Integer.parseInt(req.getParameter("id"));
-//        boolean result = moviesService.deleteMovies(deleteID);
-//        if (result) {
-//            displayMovie(req, resp);
-//        } else {
-//            req.getRequestDispatcher("views/Movies/error.jsp").forward(req, resp);
-//        }
-//    }
+
+    // Update And Delete
+
+    public void updateSchedules(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //Thực hiện cập nhật danh mục
+        //1. Lấy dữ liệu trên form
+        int id = Integer.parseInt(req.getParameter("id"));
+        int movieId = Integer.parseInt(req.getParameter("movieId"));
+        int screenRoomId = Integer.parseInt(req.getParameter("screenRoomId"));
+        LocalDateTime showTime = LocalDateTime.parse(req.getParameter("showTime"));
+        int availableSeats = Integer.parseInt(req.getParameter("availableSeats"));
+        String format = req.getParameter("format");
+
+        Schedule schedule = new Schedule();
+        schedule.setMovieId(id);
+        schedule.setMovieId(movieId);
+        schedule.setScreenRoomId(screenRoomId);
+        schedule.setShowTime(showTime);
+        schedule.setAvailableSeats(availableSeats);
+        schedule.setFormat(format);
+
+        //2. Gọi service thực hiện cập nhật
+        boolean result = scheduleService.updateSchedules(schedule);
+        //3. Xử lý kết quả
+        if (result) {
+            displaySchedule(req, resp);
+        } else {
+            req.getRequestDispatcher("views/ScheduleAndScrRooms/error.jsp").forward(req, resp);
+        }
+    }
+
+    public void deleteSchedules(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int deleteID = Integer.parseInt(req.getParameter("id"));
+        boolean result = moviesService.deleteMovies(deleteID);
+        if (result) {
+            displaySchedule(req, resp);
+        } else {
+            req.getRequestDispatcher("views/ScheduleAndScrRooms/error.jsp").forward(req, resp);
+        }
+    }
+
 }

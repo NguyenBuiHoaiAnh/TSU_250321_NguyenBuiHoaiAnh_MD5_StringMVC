@@ -17,8 +17,7 @@ public interface ScheduleDao {
 
     boolean updateSchedule(Schedule schedule);
 
-//
-//    boolean updateSchedule(Schedule schedule);
-//
-//    boolean deleteSchedule(int id);
+    // Delete
+    boolean deleteSchedules(int id);
+
 }

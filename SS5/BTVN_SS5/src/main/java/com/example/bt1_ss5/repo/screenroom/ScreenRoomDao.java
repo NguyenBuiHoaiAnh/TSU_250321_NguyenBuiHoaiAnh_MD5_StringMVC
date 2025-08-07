@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ScreenRoomDao {
     List<ScreenRoom> getAllScreenRoom();
+
+    List<Schedule> getAllScheduleByMovieID(int id);
 }

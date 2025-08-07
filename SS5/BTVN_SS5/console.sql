@@ -230,12 +230,79 @@ DELIMITER &&
 
 -- Delete
 DELIMITER &&
-create procedure delete_movie(
+create procedure delete_schedule(
     id_in int
 )
 begin
     delete
-    from Movie
+    from Schedule
     where id = id_in;
 end &&
 DELIMITER &&
+
+-- -----------------------------------------------
+
+-- Display MovieDetails
+DELIMITER $$
+
+CREATE PROCEDURE get_schedule_by_movie_id(
+    IN movie_in_in INT
+)
+BEGIN
+    SELECT *
+    FROM Schedule
+    WHERE movie_id = movie_in_in
+    ORDER BY show_time ASC;
+END$$
+
+DELIMITER &&
+
+-- Ticket
+
+CREATE TABLE tickets
+(
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT,
+    schedule_id INT,
+    seat_name   VARCHAR(10),
+    total_money DOUBLE,
+    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_ticket_customer
+        FOREIGN KEY (customer_id)
+            REFERENCES Customer(id),
+    CONSTRAINT fk_ticket_schedule
+        FOREIGN KEY (schedule_id)
+            REFERENCES Schedule (id)
+);
+
+DELIMITER $$
+
+CREATE PROCEDURE insert_ticket(
+    IN p_customer_id INT,
+    IN p_schedule_id INT,
+    IN p_seat_name VARCHAR(10),
+    IN p_total_money DOUBLE
+)
+BEGIN
+    BEGIN
+        INSERT INTO tickets (customer_id, schedule_id, seat_name, total_money)
+        VALUES (p_customer_id, p_schedule_id, p_seat_name, p_total_money);
+    END;
+END$$
+
+DELIMITER &&
+
+DELIMITER &&
+
+CREATE PROCEDURE get_booked_seats_by_schedule_id (
+    IN schedule_id_in INT
+)
+BEGIN
+    SELECT seat_name
+    FROM tickets
+    WHERE schedule_id = schedule_id_in;
+END;
+
+DELIMITER &&
+

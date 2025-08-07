@@ -1,5 +1,6 @@
 package com.example.bt1_ss5.service.screenroom.imp;
 
+import com.example.bt1_ss5.model.Schedule;
 import com.example.bt1_ss5.model.ScreenRoom;
 import com.example.bt1_ss5.repo.screenroom.ScreenRoomDao;
 import com.example.bt1_ss5.repo.screenroom.imp.ScreenRoomDaoImp;
@@ -19,6 +20,11 @@ public class ScreenRoomServiceImp implements ScreenRoomService {
     @Override
     public List<ScreenRoom> getScreenRooms() {
         return screenRoomDao.getAllScreenRoom();
+    }
+
+    @Override
+    public List<Schedule> getScheduleByMovieID(int id) {
+        return screenRoomDao.getAllScheduleByMovieID(id);
     }
 
 }

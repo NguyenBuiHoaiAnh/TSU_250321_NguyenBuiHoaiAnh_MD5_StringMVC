@@ -1,17 +1,12 @@
 package com.example.bt1_ss5.repo.schedule.imp;
 
-import com.example.bt1_ss5.model.Movie;
 import com.example.bt1_ss5.model.Schedule;
-import com.example.bt1_ss5.model.ScreenRoom;
 import com.example.bt1_ss5.repo.schedule.ScheduleDao;
 import com.example.bt1_ss5.util.ConnectionDB;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,18 +86,19 @@ public class ScheduleDaoImp implements ScheduleDao {
 
         try {
             conn = ConnectionDB.openConnection();
-            callSt = conn.prepareCall("{call find_by_id(?)}");
+            callSt = conn.prepareCall("{call find_schedule_by_id(?)}");
             callSt.setInt(1, id);
             ResultSet rs = callSt.executeQuery();
             if (rs.next()) {
                 schedule = new Schedule();
                 schedule.setId(rs.getInt("id"));
-                schedule.setTitle(rs.getString("title"));
-                schedule.setDirector(rs.getString("director"));
-                schedule.setGenre(rs.getString("genre"));
-                schedule.setDescription(rs.getString("description"));
-                schedule.setDuration(rs.getString("duration"));
-                schedule.setLanguage(rs.getString("language"));
+                schedule.setMovieTitle(rs.getString("movie_title"));
+                schedule.setMovieId(rs.getInt("movie_id"));
+                schedule.setScreenRoomId(rs.getInt("screen_room_id"));
+                schedule.setShowTime(rs.getTimestamp("show_time").toLocalDateTime());
+                schedule.setFormat(rs.getString("format"));
+                schedule.setAvailableSeats(rs.getInt("available_seats"));
+                schedule.setScreenRoomName(rs.getString("screen_room_name"));
             }
 
         } catch (Exception e) {
@@ -114,17 +110,17 @@ public class ScheduleDaoImp implements ScheduleDao {
     }
 
     @Override
-    public boolean updateMovies(Schedule schedule) {
+    public boolean updateSchedule(Schedule schedule) {
         Connection conn = null;
         CallableStatement callSt = null;
 
         try {
             conn = ConnectionDB.openConnection();
-            callSt = conn.prepareCall("{call update_movie(?,?,?,?,?,?,?)}");
+            callSt = conn.prepareCall("{call update_schedule(?,?,?,?,?,?,?)}");
             callSt.setInt(1, schedule.getId());
             callSt.setString(2, schedule.getMovieTitle());
             callSt.setInt(3, schedule.getMovieId());
-            callSt.setTimestamp(3, java.sql.Timestamp.valueOf(schedule.getShowTime()));
+            callSt.setTimestamp(4, java.sql.Timestamp.valueOf(schedule.getShowTime()));
             callSt.setInt(5, schedule.getScreenRoomId());
             callSt.setInt(6, schedule.getAvailableSeats());
             callSt.setString(7, schedule.getFormat());
@@ -139,22 +135,24 @@ public class ScheduleDaoImp implements ScheduleDao {
         return false;
     }
 
-//
-//    @Override
-//    public boolean deleteSchedule(int id) {
-//        Connection connection = null;
-//        CallableStatement callableStatement = null;
-//        try {
-//            connection = ConnectionDB.openConnection();
-//            callableStatement = connection.prepareCall("{call delete_schedule(?)}");
-//            callableStatement.setLong(1, id);
-//            int rows = callableStatement.executeUpdate();
-//            if (rows > 0) return true;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            ConnectionDB.closeConnection(connection, callableStatement);
-//        }
-//        return false;
-//    }
+    // Delete
+    @Override
+    public boolean deleteSchedules(int id) {
+        Connection conn = null;
+        CallableStatement callSt = null;
+
+        try {
+            conn = ConnectionDB.openConnection();
+            callSt = conn.prepareCall("{call delete_schedule(?)}");
+            callSt.setInt(1, id);
+            callSt.executeUpdate();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionDB.closeConnection(conn, callSt);
+        }
+        return false;
+    }
 }

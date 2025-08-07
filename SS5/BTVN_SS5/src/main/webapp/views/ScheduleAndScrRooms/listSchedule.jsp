@@ -145,17 +145,17 @@
         <td>${schedule.format}</td>
         <td>
           <!-- Form Update -->
-          <form action="<%=request.getContextPath()%>/MovieServlet" method="get" style="display:inline;">
+          <form action="ScheduleServlet?action=addFormUpdate" method="get" style="display:inline;">
             <input type="hidden" name="action" value="initUpdate">
-            <input type="hidden" name="id" value="${movies.id}">
+            <input type="hidden" name="id" value="${schedule.id}">
             <button type="submit" class="btn btn-update">Update</button>
           </form>
 
           <!-- Form Delete -->
-          <form action="<%=request.getContextPath()%>/MovieServlet" method="get" style="display:inline;"
+          <form action="<%=request.getContextPath()%>/ScheduleServlet" method="get" style="display:inline;"
                 onsubmit="return confirm('Are you sure you want to delete this movie?');">
             <input type="hidden" name="action" value="Delete">
-            <input type="hidden" name="id" value="${movies.id}">
+            <input type="hidden" name="id" value="${schedule.id}">
             <button type="submit" class="btn btn-delete">Delete</button>
           </form>
         </td>
