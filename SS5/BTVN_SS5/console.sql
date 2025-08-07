@@ -1,5 +1,5 @@
-create database bt1_ss5_stringmvc;
-use bt1_ss5_stringmvc;
+create database bt1_ss5_springmvc;
+use bt1_ss5_springmvc;
 
 create table Customer
 (
@@ -36,7 +36,7 @@ create table Schedule
     id              int primary key auto_increment,
     movie_title     varchar(100),
     movie_id        int,
-    show_time       date,
+    show_time       timestamp,
     screen_room_id  int,
     available_seats int,
     format          varchar(10),
@@ -138,6 +138,92 @@ begin
         description = description_in,
         duration    = duration_in,
         language    = language_in
+    where id = id_in;
+end &&
+DELIMITER &&
+
+-- Delete
+DELIMITER &&
+create procedure delete_movie(
+    id_in int
+)
+begin
+    delete
+    from Movie
+    where id = id_in;
+end &&
+DELIMITER &&
+
+-- ------------------- Schedule --------------------
+
+-- Display
+DELIMITER &&
+create procedure display_schedule_screenroom()
+begin
+    select s.*, sr.screen_room_name
+    from Schedule s
+             inner join ScreenRoom sr
+                        on s.screen_room_id = sr.id;
+end &&
+DELIMITER &&
+
+-- Create
+DELIMITER &&
+create procedure get_screenroom()
+begin
+    select * from Screenroom;
+end &&
+DELIMITER &&
+
+DELIMITER &&
+create procedure add_schedule(
+    movie_title_in varchar(100),
+    movie_id_in int,
+    show_time_in date,
+    screen_room_id_in int,
+    available_seats_in int,
+    format_in varchar(10)
+)
+begin
+    insert into Schedule (movie_title, movie_id, show_time,
+                          screen_room_id, available_seats, format)
+    values (movie_title_in, movie_id_in,
+            show_time_in, screen_room_id_in,
+            available_seats_in, format_in);
+end
+&&
+DELIMITER &&
+
+-- Update
+DELIMITER &&
+create procedure find_schedule_by_id(
+    id_in int
+)
+begin
+    select *
+    from Schedule
+    where id = id_in;
+end &&
+DELIMITER &&
+
+DELIMITER &&
+create procedure update_schedule(
+    id_in int,
+    movie_title_in varchar(255),
+    movie_id_in varchar(70),
+    show_time_in varchar(50),
+    screen_room_id_in varchar(255),
+    available_seats_in int,
+    format_in varchar(30)
+)
+begin
+    update Schedule
+    set movie_title     = movie_title_in,
+        movie_id        = movie_id_in,
+        show_time       = show_time_in,
+        screen_room_id  = screen_room_id_in,
+        available_seats = available_seats_in,
+        format          = format_in
     where id = id_in;
 end &&
 DELIMITER &&

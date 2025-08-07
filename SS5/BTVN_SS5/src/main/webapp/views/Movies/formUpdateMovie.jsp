@@ -4,73 +4,102 @@
 <head>
     <title>Title</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 30px;
-            background-color: #f0f0f0;
+        h1 {
+            text-align: center;
+            font-size: 26px;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
         }
 
-        h3 {
-            color: #333;
-        }
-
-        form {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            max-width: 400px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-
-        label {
+        h1::after {
+            content: '';
             display: block;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            box-sizing: border-box;
-        }
-
-        input[type="submit"] {
-            margin-top: 20px;
-            padding: 10px 20px;
+            width: 50px;
+            height: 3px;
             background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
+            margin: 6px auto 0;
+            border-radius: 2px;
         }
 
-        input[type="submit"]:hover {
-            background-color: #45a049;
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 15px;
+        }
+
+        form input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        form input[type="text"]:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        form input[type="submit"] {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #218838;
         }
     </style>
 </head>
 <body>
-<h3>Update Movie</h3>
-<form action="<%=request.getContextPath()%>/MovieServlet?action=Update" method="post">
-    <label for="id">ID</label>
-    <input type="text" id="id" name="id" value="${movie.id}" readonly/><br>
+<h1>Update Movie</h1>
+<div class="form-container">
+    <form action="<%=request.getContextPath()%>/MovieServlet?action=Update" method="post">
+        <label for="id">ID</label>
+        <input type="text" id="id" name="id" value="${movie.id}" readonly/><br>
 
-    <label for="title">Title</label>
-    <input type="text" id="title" name="title" value="${movie.title}"/><br>
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" value="${movie.title}"/><br>
 
-    <label for="genre">Genre</label>
-    <input type="text" id="genre" name="genre" value="${movie.genre}"/><br>
+        <label for="director">Director</label>
+        <input type="text" id="director" name="director" value="${movie.director}"/><br>
 
-    <label for="description">Description</label>
-    <input type="text" id="description" name="description" value="${movie.description}"/><br>
+        <label for="genre">Genre</label>
+        <input type="text" id="genre" name="genre" value="${movie.genre}"/><br>
 
-    <label for="duration">Duration</label>
-    <input type="text" id="duration" name="duration" value="${movie.duration}"/><br>
+        <label for="description">Description</label>
+        <input type="text" id="description" name="description" value="${movie.description}"/><br>
 
-    <label for="language">Language</label>
-    <input type="text" id="language" name="language" value="${movie.language}"/><br>
+        <label for="duration">Duration</label>
+        <input type="text" id="duration" name="duration" value="${movie.duration}"/><br>
 
-    <input type="submit" value="Update"/>
-</form>
+        <label for="language">Language</label>
+        <input type="text" id="language" name="language" value="${movie.language}"/><br>
+
+        <input type="submit" value="Update"/>
+    </form>
+</div>
 </body>
 </html>

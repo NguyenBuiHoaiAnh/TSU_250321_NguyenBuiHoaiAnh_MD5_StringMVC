@@ -8,5 +8,6 @@
 <h1>Trang đăng nhập</h1>
 <a href="views/login.jsp">Sign in</a>
 <a href="MovieServlet?action=findAll">Movie Controller</a>
+<a href="ScheduleServlet?action=findAll">ScheduleAndSR Controller</a>
 </body>
 </html>

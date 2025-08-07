@@ -1,21 +1,23 @@
 package com.example.bt1_ss5.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Schedule {
     private int id;
     private String movieTitle;
     private int movieId;
-    private LocalDate showTime;
+    private LocalDateTime showTime;
     private int screenRoomId;
     private int availableSeats;
     private String format;
+    private String screenRoomName;
 
     public Schedule() {
     }
 
-    public Schedule(int id, String movieTitle, int movieId, LocalDate showTime, int screenRoomId, int availableSeats, String format) {
+    public Schedule(int id, String movieTitle, int movieId, LocalDateTime showTime, int screenRoomId, int availableSeats, String format, String screenRoomName) {
         this.id = id;
         this.movieTitle = movieTitle;
         this.movieId = movieId;
@@ -23,6 +25,7 @@ public class Schedule {
         this.screenRoomId = screenRoomId;
         this.availableSeats = availableSeats;
         this.format = format;
+        this.screenRoomName = screenRoomName;
     }
 
     public int getId() {
@@ -49,11 +52,11 @@ public class Schedule {
         this.movieId = movieId;
     }
 
-    public LocalDate getShowTime() {
+    public LocalDateTime getShowTime() {
         return showTime;
     }
 
-    public void setShowTime(LocalDate showTime) {
+    public void setShowTime(LocalDateTime showTime) {
         this.showTime = showTime;
     }
 
@@ -79,5 +82,13 @@ public class Schedule {
 
     public void setFormat(String format) {
         this.format = format;
+    }
+
+    public String getScreenRoomName() {
+        return screenRoomName;
+    }
+
+    public void setScreenRoomName(String screenRoomName) {
+        this.screenRoomName = screenRoomName;
     }
 }
