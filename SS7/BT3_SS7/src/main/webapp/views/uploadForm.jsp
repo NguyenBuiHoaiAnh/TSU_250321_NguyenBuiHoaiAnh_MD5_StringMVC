@@ -1,15 +1,30 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-  <title>Upload Avatar</title>
+    <title>Title</title>
 </head>
 <body>
-<h2>Upload ảnh đại diện</h2>
-<form:form action="/upload" method="post" modelAttribute="userProfile" enctype="multipart/form-data">
-  Tên người dùng: <form:input path="username"/><br/><br/>
-  Ảnh đại diện: <input type="file" name="avatar"/><br/><br/>
-  <input type="submit" value="Tải lên"/>
+<form:form modelAttribute="userProfile" method="post" action="uploadAvatar" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td><label>Tên người dùng:</label></td>
+            <td><form:input path="username"/><br/>
+                <form:errors path="username" cssStyle="color: red"/>
+            </td>
+        </tr>
+        <tr>
+            <td><label>File ảnh đại diện:</label></td>
+            <td><input type="file" name="avatar"/><br/>
+                <c:if test="${not empty errorMessage}">
+                    <p class="error">${errorMessage}</p>
+                </c:if>
+
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Submit"/>
 </form:form>
 </body>
 </html>

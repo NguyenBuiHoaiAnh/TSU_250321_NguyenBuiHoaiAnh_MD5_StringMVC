@@ -24,32 +24,29 @@ tasks.withType(JavaCompile) {
 dependencies {
     compileOnly('jakarta.servlet:jakarta.servlet-api:6.1.0')
 
-    // SpringMVC
-
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
     // https://mvnrepository.com/artifact/org.springframework/spring-webmvc
     implementation("org.springframework:spring-webmvc:6.2.9")
 
-    // Tab lib về thẻ jstl như <c:forEach>
-
+    // https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api
+    implementation("jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.2")
     // https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api
     implementation("jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.1")
+
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-validator
+    implementation("org.hibernate:hibernate-validator:8.0.2.Final")
 
     // https://mvnrepository.com/artifact/org.glassfish.web/jakarta.servlet.jsp.jstl
     implementation("org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1")
 
-    // Hidernate Validator Engine
+    compileOnly "org.projectlombok:lombok:1.18.38"
+    annotationProcessor "org.projectlombok:lombok:1.18.38"
 
-    // https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator
-    implementation("org.hibernate.validator:hibernate-validator:8.0.1.Final")
-
-    // Cloudinary
-
-    // https://mvnrepository.com/artifact/com.cloudinary/cloudinary-core
-    implementation("com.cloudinary:cloudinary-core:1.38.0")
-
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    // https://mvnrepository.com/artifact/com.cloudinary/cloudinary-http44
+    implementation("com.cloudinary:cloudinary-http44:1.32.2")
 }
+
 
 test {
     useJUnitPlatform()

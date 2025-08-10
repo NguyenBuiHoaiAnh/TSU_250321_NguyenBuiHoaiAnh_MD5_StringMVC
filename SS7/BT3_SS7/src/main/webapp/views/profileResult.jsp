@@ -1,14 +1,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <title>Thông Tin Cá Nhân</title>
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 </head>
 <body>
 <h2>Thông tin người dùng:</h2>
-<p>Tên người dùng: ${username}</p>
-<p>Ảnh đại diện:</p>
-<img src="${avatarPath}" width="150" height="150"/>
-<br/><br/>
-<a href="/upload">Quay lại</a>
+<p><strong>Tên: </strong> ${userProfile.username}</p>
+<img src="${imgUrl}" alt="Ảnh chân dung" width="300"/>
+<p>Ảnh đại diện</p>
 </body>
 </html>
