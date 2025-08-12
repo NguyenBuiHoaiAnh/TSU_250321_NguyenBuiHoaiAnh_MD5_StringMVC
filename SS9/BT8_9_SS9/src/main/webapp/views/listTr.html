@@ -21,7 +21,7 @@
             <td th:text="${transaction.amount}"></td>
             <td th:text="${transaction.type?'Thu':'Chi'}"></td>
             <td>
-                <a th:href="@{/edit/{id}(id=${transaction.id})}" class="btn-edit">Sửa</a>
+                <a th:href="@{/editPage/{id}(id=${transaction.id})}" class="btn-edit">Sửa</a>
                 <a th:href="@{/delete/{id}(id=${transaction.id})}" class="btn-delete"
                    onclick="return confirm('Bạn có chắc chắn muốn xóa không?')"
                 >Xóa</a>

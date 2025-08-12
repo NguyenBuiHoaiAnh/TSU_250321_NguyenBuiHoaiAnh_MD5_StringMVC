@@ -53,7 +53,7 @@ public class TransactionController {
         return "redirect:/";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/editPage/{id}")
     public String initEditTransaction(@PathVariable("id") int id,
                                       @ModelAttribute("transactions") List<Transaction> transactionList,
                                       Model model) {
