@@ -2,6 +2,7 @@ package ra.edu.service.imp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ra.edu.model.PaginationResult;
 import ra.edu.model.Room;
 import ra.edu.repo.RoomRepo;
 import ra.edu.service.RoomService;
@@ -40,5 +41,10 @@ public class RoomServiceImp implements RoomService {
     @Override
     public Room findById(int id) {
         return roomRepo.findById(id);
+    }
+
+    @Override
+    public PaginationResult getPaginationData(Object item, int size, int current) {
+        return roomRepo.getAllRooms(size, current);
     }
 }

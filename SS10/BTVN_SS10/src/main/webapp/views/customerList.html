@@ -15,13 +15,13 @@
     <td>Address</td>
     <td>Permission</td>
   </tr>
-  <tr th:each="c:${customer}">
-    <td th:text="c.id"></td>
-    <td th:text="c.fullName"></td>
-    <td th:text="c.phoneNumber"></td>
-    <td th:text="c.email"></td>
-    <td th:text="c.address"></td>
-    <td th:text="c.role"></td>
+  <tr th:each="c:${customers}">
+    <td th:text="${c.id}"></td>
+    <td th:text="${c.fullName}"></td>
+    <td th:text="${c.email}"></td>
+    <td th:text="${c.phoneNumber}"></td>
+    <td th:text="${c.address}"></td>
+    <td th:text="${c.role}"></td>
   </tr>
 </table>
 </body>
