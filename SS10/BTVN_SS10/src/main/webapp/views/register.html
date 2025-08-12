@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <h1>Register Customer</h1>
+
+    <h3 th:if="${err}" th:text="${err}" style="color: red"></h3>
+
+    <form th:action="@{/auth/register}" th:object="${customer}" method="post">
+        <table>
+            <tr>
+                <td>Full Name</td>
+                <td>
+                    <input type="text" th:field="*{fullName}"><br>
+                    <div th:if="${#fields.hasErrors('fullName')}"
+                         th:errors="*{fullName}"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Phone Number</td>
+                <td>
+                    <input type="text" th:field="*{phoneNumber}"><br>
+                    <div th:if="${#fields.hasErrors('phoneNumber')}"
+                         th:errors="*{phoneNumber}"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>
+                    <input type="text" th:field="*{email}"><br>
+                    <div th:if="${#fields.hasErrors('email')}"
+                         th:errors="*{email}"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td>
+                    <input type="text" th:field="*{password}"><br>
+                    <div th:if="${#fields.hasErrors('fullName')}"
+                         th:errors="*{password}"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>
+                    <input type="text" th:field="*{address}">
+                    <div th:if="${#fields.hasErrors('address')}"
+                         th:errors="*{address}"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" th:value="Register"/>
+                    <input type="reset" th:value="Clear"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
