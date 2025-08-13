@@ -21,6 +21,8 @@ public class HomeController {
 
     @Autowired
     private RoomService roomService;
+
+    @Autowired
     private BookingService bookingService;
 
 
@@ -56,7 +58,7 @@ public class HomeController {
         model.addAttribute("booking", booking);
         model.addAttribute("customer", loggedInCustomer);
         model.addAttribute("room", room);
-        System.out.println(147);
+
         return "bookRoom";
     }
 
