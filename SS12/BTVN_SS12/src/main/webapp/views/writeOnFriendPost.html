@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Viết bài lên tường bạn bè</title>
+</head>
+<body>
+<h2>Viết bài lên trang cá nhân</h2>
+
+<form th:action="@{/posts/write-on-the-wall/{friendId}(friendId=${friendId})}"
+      th:object="${postDto}" method="post" enctype="multipart/form-data">
+    <label>Nội dung</label><br>
+    <textarea th:field="*{content}" rows="4" cols="50"></textarea>
+    <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+
+    <label>Hình ảnh (tùy chọn)</label><br>
+    <input type="file" th:field="*{image}"><br><br>
+
+    <button type="submit">Đăng bài</button>
+</form>
+
+<p th:if="${errorMsg}" th:text="${errorMsg}"></p>
+<a th:href="@{/friends/{id}(id=${friendId})}">Quay lại trang cá nhân</a>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Bài viết của bạn bè</title>
+</head>
+<body>
+<h1>Bài viết của bạn bè</h1>
+
+<div th:if="${#lists.isEmpty(posts)}">
+    <p>Không có bài viết nào.</p>
+</div>
+
+<div th:each="post : ${posts}" class="post-card">
+    <p class="post-author" th:text="${post.user.fullName}">Tên người đăng</p>
+    <p th:text="${post.content}">Nội dung bài viết</p>
+    <img th:if="${post.image != null}" th:src="${post.image}" alt="Post image">
+    <p class="post-date" th:text="${post.createdDate}">Ngày đăng</p>
+</div>
+
+<div class="action-links">
+    <a class="action-btn" th:href="@{/users/all-friend}">Quay lại danh sách bạn bè</a>
+    <a class="action-btn btn-secondary" th:href="@{/users}">Quay lại Profile</a>
+    <a class="action-btn btn-primary" th:href="@{/posts/write-on-the-wall/{id}(id=${friendId})}">Viết lên tường</a>
+</div>
+</body>
+</html>

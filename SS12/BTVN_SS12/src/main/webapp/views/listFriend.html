@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách bạn bè</title>
+</head>
+<body>
+<h1>Danh sách bạn bè</h1>
+
+<div th:if="${#lists.isEmpty(friends)}">
+  <p>Chưa có bạn bè nào cả.</p>
+</div>
+
+<div th:each="friend : ${friends}" class="friend-card">
+  <img th:src="${friend.avatar}" alt="avatar">
+  <p><strong th:text="${friend.fullName}"></strong></p>
+  <p>Email: <span th:text="${friend.email}"></span></p>
+
+  <a th:href="@{/friends/{id}(id=${friend.id})}">
+    <button type="button">Xem trang cá nhân</button>
+  </a>
+  <a th:href="@{/messages/sender/{sId}/receiver/{rId}(sId=${senderId}, rId=${friend.id})}">
+    <button type="button">Nhắn tin</button>
+  </a>
+</div>
+
+<a class="action-btn" th:href="@{/users}">Quay lại Profile</a>
+</body>
+</html>
