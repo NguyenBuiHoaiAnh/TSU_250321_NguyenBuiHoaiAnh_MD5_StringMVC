@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>UPDATE DOCTORS</h1>
+
+<form th:action="@{/doctors/update}" th:object="${d}" method="post">
+    <h3 th:if="${error}" th:text="${error}"></h3>
+
+    <div>
+        <label for="id">ID</label>
+        <input type="text" id="id" th:field="*{id}" readonly>
+    </div>
+
+    <div>
+        <label for="fullName">Full name</label>
+        <input type="text" id="fullName" th:field="*{fullName}">
+        <small th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></small>
+    </div>
+
+    <div>
+        <label for="specialization">Specialization</label>
+        <input type="text" id="specialization" th:field="*{specialization}">
+        <small th:if="${#fields.hasErrors('specialization')}" th:errors="*{specialization}"></small>
+    </div>
+
+    <div>
+        <label for="contact">Contact</label>
+        <input type="text" id="contact" th:field="*{contact}">
+        <small th:if="${#fields.hasErrors('contact')}" th:errors="*{contact}"></small>
+    </div>
+
+    <div>
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" th:field="*{phone}">
+        <small th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></small>
+    </div>
+
+    <div>
+        <input type="submit" value="Update">
+        <input type="reset" value="Clear">
+    </div>
+</form>
+
+<a th:href="@{/doctors}">Back</a>
+</body>
+</html>

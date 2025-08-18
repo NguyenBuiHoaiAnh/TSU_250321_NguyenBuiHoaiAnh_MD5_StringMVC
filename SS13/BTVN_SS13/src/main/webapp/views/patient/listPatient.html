@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Patient</title>
+</head>
+<body>
+<h1>LIST PATIENTS</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>DOB</th>
+        <th>Contact</th>
+        <th>Phone</th>
+        <th>Status</th>
+        <th>Update</th>
+        <th>Delete</th>
+        <th>Change Status</th>
+    </tr>
+    <tr th:each="pat:${patients}">
+        <td th:text="${pat.id}"></td>
+        <td th:text="${pat.fullName}"></td>
+        <td th:text="${pat.dob}"></td>
+        <td th:text="${pat.contact}"></td>
+        <td th:text="${pat.phone}"></td>
+        <td th:text="${pat.status?'Đang điều trị':'Đã hồi phục'}"></td>
+        <td>
+            <a th:href="@{patients/update/{id}(id=${pat.id})}">Update</a>
+        </td>
+        <td>
+            <a th:href="@{patients/delete/{id}(id=${pat.id})}"
+            onclick="return confirm('Delete?')">Delete</a>
+        </td>
+        <td>
+            <a th:href="@{patients/change-status/{id}(id=${pat.id})}">Change Status</a>
+        </td>
+    </tr>
+</table>
+<a th:href="@{/patients/add}">Add Patient</a>
+</body>
+</html>

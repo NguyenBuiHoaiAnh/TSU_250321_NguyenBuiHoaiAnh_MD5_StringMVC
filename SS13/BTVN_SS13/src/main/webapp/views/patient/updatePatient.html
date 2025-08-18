@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>UPDATE PATIENT</h1>
+
+<form th:action="@{/patients/update}" th:object="${p}" method="post">
+  <h3 th:if="${error}" th:text="${error}"></h3>
+
+  <div>
+    <label for="id">ID</label>
+    <input type="text" id="id" th:field="*{id}" readonly>
+    <small th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></small>
+  </div>
+
+  <div>
+    <label for="fullName">Full name</label>
+    <input type="text" id="fullName" th:field="*{fullName}">
+    <small th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></small>
+  </div>
+
+  <div>
+    <label for="dob">DOB</label>
+    <input type="datetime-local" id="dob" th:field="*{dob}">
+    <small th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"></small>
+  </div>
+
+  <div>
+    <label for="contact">Contact</label>
+    <input type="text" id="contact" th:field="*{contact}">
+    <small th:if="${#fields.hasErrors('contact')}" th:errors="*{contact}"></small>
+  </div>
+
+  <div>
+    <label for="phone">Phone</label>
+    <input type="text" id="phone" th:field="*{phone}">
+    <small th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></small>
+  </div>
+
+  <div>
+    <input type="submit" value="Update">
+    <input type="reset" value="Clear">
+  </div>
+</form>
+
+<a th:href="@{/patients}">Back</a>
+
+</body>
+</html>

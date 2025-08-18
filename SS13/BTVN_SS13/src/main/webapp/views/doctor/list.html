@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>List Doctors!</title>
+
+</head>
+<body>
+<div class="container">
+    <h1>LIST DOCTORS</h1>
+    <h3 th:text="${success}"></h3>
+    <h3 th:text="${error}"></h3>
+    <table class="table table-bordered table-tripped">
+        <tr>
+            <th>Id</th>
+            <th>Full name</th>
+            <th>Contact</th>
+            <th>Specialization</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Update</th>
+            <th>Delete</th>
+            <th>Change status</th>
+        </tr>
+        <tr th:each="d:${doctors}">
+            <td th:text="${d.id}"></td>
+            <td th:text="${d.fullName}"></td>
+            <td th:text="${d.contact}"></td>
+            <td th:text="${d.specialization}"></td>
+            <td th:text="${d.phone}"></td>
+            <td th:text="${d.status ?'On Duty':'On Leave'}"></td>
+            <td>
+                <a th:href="@{/doctors/update/{id}(id=${d.id})}">Update</a>
+            </td>
+            <td>
+                <a th:href="@{/doctors/delete/{id}(id=${d.id})}"
+                   onclick="return confirm('Sure?')">Delete</a>
+            </td>
+            <td>
+                <a th:href="@{/doctors/change-status/{id}(id=${d.id})}">Change status</a>
+            </td>
+        </tr>
+    </table>
+    <a th:href="@{/doctors/add}">Add Doctor</a>
+    <a th:href="@{/home}">HomePage</a>
+</div>
+</body>
+</html>

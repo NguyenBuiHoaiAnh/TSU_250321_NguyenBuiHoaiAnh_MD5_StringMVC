@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Patient</title>
+</head>
+<body>
+
+<h1>ADD APPOINTMENT</h1>
+
+<form th:action="@{/appointments/add}" th:object="${appointment}" method="post">
+    <h3 th:if="${error}" th:text="${error}"></h3>
+    <div>
+        <label for="date">Date</label>
+        <input type="date" id="date" th:field="*{date}" required>
+        <small th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></small>
+    </div>
+
+    <div>
+        <label for="hour">Hour</label>
+        <input type="text" id="hour" th:field="*{hour}">
+        <small th:if="${#fields.hasErrors('hour')}" th:errors="*{hour}"></small>
+    </div>
+
+    <label>Bác sĩ:</label>
+    <select th:field="*{doctorId}" required>
+        <option value="" selected>-- Chọn bác sĩ --</option>
+        <option th:each="doctor : ${doctors}"
+                th:value="${doctor.id}"
+                th:text="${doctor.fullName}">
+        </option>
+    </select>
+    <div class="error" th:if="${#fields.hasErrors('doctorId')}" th:errors="*{doctorId}"></div>
+
+    <label>Bệnh nhân:</label>
+    <select th:field="*{patientId}" required>
+        <option value="" selected>-- Chọn bệnh nhân --</option>
+        <option th:each="patient : ${patients}"
+                th:value="${patient.id}"
+                th:text="${patient.fullName}">
+        </option>
+    </select>
+    <div class="error" th:if="${#fields.hasErrors('patientId')}" th:errors="*{patientId}"></div>
+
+    <button type="submit">Đặt lịch</button>
+
+    <div>
+        <input type="submit" value="Add">
+        <input type="reset" value="Clear">
+    </div>
+</form>
+
+<a th:href="@{/patients}">Back</a>
+</body>
+</html>
