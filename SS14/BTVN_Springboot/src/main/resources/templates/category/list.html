@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Category</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        a.add-btn {
+            display: inline-block;
+            margin-bottom: 15px;
+            padding: 10px 16px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        a.add-btn:hover {
+            background: #218838;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        table th, table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background: #4A90E2;
+            color: white;
+        }
+
+        table tr:hover {
+            background: #f1f1f1;
+        }
+
+        a.back-link {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #4A90E2;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        a.back-link:hover {
+            color: #357ABD;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<h1>CATEGORY LIST</h1>
+
+<a th:href="@{/categories/add}" class="add-btn">+ ADD CATEGORY</a>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+
+    <tr th:each="c:${categoryList}">
+        <td th:text="${c.id}"></td>
+        <td th:text="${c.categoryName}"></td>
+        <td th:text="${c.description}"></td>
+    </tr>
+</table>
+
+<a th:href="@{login/admin}" class="back-link">← Back to Page</a>
+</body>
+</html>
