@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Service Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: radial-gradient(circle at 20% 20%, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Sao lấp lánh */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background: transparent;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle 3s infinite alternate ease-in-out,
+            moveStars 60s linear infinite;
+        }
+
+        @keyframes twinkle {
+            from { opacity: 0.2; }
+            to { opacity: 1; }
+        }
+
+        @keyframes moveStars {
+            from { transform: translateY(0); }
+            to { transform: translateY(100vh); }
+        }
+
+        /* Grid hiển thị */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            position: relative;
+            z-index: 1; /* nổi lên trên sao */
+        }
+
+        /* Card */
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            backdrop-filter: blur(8px);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
+        }
+
+        /* Tiêu đề */
+        .service-card h1 {
+            font-size: 22px;
+            font-weight: bold;
+            color: #00e5ff;
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.7);
+            margin-bottom: 15px;
+        }
+
+        /* Ảnh */
+        .service-card img {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
+        }
+
+        /* Nội dung */
+        .service-card p {
+            margin: 8px 0;
+            font-size: 14px;
+            color: #e0f7fa;
+        }
+
+        /* In đậm */
+        .service-card strong {
+            color: #80deea;
+        }
+    </style>
+</head>
+<body>
+
+<div class="stars">
+    <!-- tạo 50 ngôi sao -->
+    <div class="star" style="top:10%; left:20%; animation-delay:0s;"></div>
+    <div class="star" style="top:30%; left:50%; animation-delay:1s;"></div>
+    <div class="star" style="top:70%; left:80%; animation-delay:2s;"></div>
+    <div class="star" style="top:60%; left:10%; animation-delay:3s;"></div>
+    <div class="star" style="top:40%; left:70%; animation-delay:1.5s;"></div>
+    <div class="star" style="top:20%; left:90%; animation-delay:2.5s;"></div>
+    <div class="star" style="top:80%; left:30%; animation-delay:0.5s;"></div>
+    <div class="star" style="top:50%; left:60%; animation-delay:2.2s;"></div>
+    <div class="star" style="top:15%; left:40%; animation-delay:1.8s;"></div>
+    <div class="star" style="top:85%; left:50%; animation-delay:0.7s;"></div>
+</div>
+
+<div class="grid-container">
+    <div class="service-card">
+        <h1 th:text="${service.name}"></h1>
+
+        <img th:src="${service.image}" alt="Service Image"/>
+
+        <p><strong>Price</strong>
+            <span th:text="${service.price}"></span> USD</p>
+
+        <p><strong>Duration</strong>
+            <span th:text="${service.duration}"></span> Day</p>
+
+        <p><strong>Description</strong></p>
+        <p th:text="${service.description}"></p>
+        <p><strong>Animal</strong> <span th:text="${service.animal.name}"></span></p>
+    </div>
+
+    <!--    <button> Order </button>-->
+</div>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f2027;
+            background: linear-gradient(135deg, #2c5364, #203a43, #0f2027);
+            color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 900;
+            color: #00e0ff;
+            text-shadow: 0 0 12px #00e0ff, 0 0 18px #00e0ff;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 0 20px rgba(0, 224, 255, 0.2);
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #00e0ff;
+            text-shadow: 0 0 8px #00e0ff;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        input[type="file"] {
+            padding: 8px;
+            border: 2px solid #3498db;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        input[type="file"]::file-selector-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background: #2980b9;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        input[type="submit"], input[type="reset"] {
+            flex: 1;
+            margin: 5px;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        input[type="submit"] {
+            background: #00e0ff;
+            color: #fff;
+        }
+
+        input[type="submit"]:hover {
+            background: #00bcd4;
+            box-shadow: 0 0 12px #00e0ff;
+        }
+
+        input[type="reset"] {
+            background: #ff4ecb;
+            color: #fff;
+        }
+
+        input[type="reset"]:hover {
+            background: #e23da4;
+            box-shadow: 0 0 12px #ff4ecb;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid #3498db;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        select:focus {
+            border-color: #2980b9;
+            outline: none;
+        }
+
+        option {
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+<h1>Edit Service</h1>
+<form th:action="@{/services/edit}" th:object="${anlService}" method="post" enctype="multipart/form-data">
+
+    <div>
+        <label for="id">ID</label>
+        <input type="text" id="id" th:field="*{id}" readonly>
+    </div>
+
+    <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" th:field="*{name}" required>
+    </div>
+
+    <div>
+        <label for="description">Description</label>
+        <input type="text" id="description" th:field="*{description}" required>
+    </div>
+
+    <div>
+        <label for="price">Price</label>
+        <input type="number" id="price" th:field="*{price}" required>
+    </div>
+
+    <div>
+        <label for="duration">Duration(day)</label>
+        <input type="text" id="duration" th:field="*{duration}" required>
+    </div>
+
+    <div>
+        <label for="image">Image</label>
+        <input type="file" id="image" name="file">
+    </div>
+
+    <div>
+        <label>Animal</label>
+        <select th:field="*{animal}">
+            <option th:each="a : ${animals}"
+                    th:value="${a.id}"
+                    th:text="${a.name}"></option>
+        </select>
+    </div>
+
+    <div class="btn-group">
+        <input type="submit" value="Edit">
+        <input type="reset" value="Clear">
+    </div>
+</form>
+</body>
+</html>

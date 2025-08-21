@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Animals</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle at 20% 20%, #1a1a2e, #0f3460, #16213e);
+            color: #ffffff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #6a0dad;
+            border-radius: 15px;
+            padding: 30px 40px;
+            box-shadow: 0 0 25px rgba(138, 43, 226, 0.9),
+            0 0 50px rgba(75, 0, 130, 0.6);
+            width: 350px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #c084fc;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px #8a2be2, 0 0 25px #9400d3;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            color: #e0e0ff;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            box-shadow: 0 0 10px #6a0dad inset;
+        }
+
+        input[type="text"]:focus {
+            box-shadow: 0 0 15px #9d4edd;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        input[type="submit"], input[type="reset"] {
+            background: linear-gradient(45deg, #6a0dad, #9d4edd);
+            border: none;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.8);
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        input[type="submit"]:hover, input[type="reset"]:hover {
+            background: linear-gradient(45deg, #9d4edd, #c084fc);
+            box-shadow: 0 0 20px rgba(192, 132, 252, 1);
+        }
+
+        h3 {
+            color: #ff4d6d;
+            margin-bottom: 15px;
+        }
+
+        .error-message {
+            display: block;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #ff4d6d;
+            text-shadow: 0 0 5px rgba(255, 77, 109, 0.8);
+            font-weight: bold;
+            animation: blinkError 1.5s infinite;
+        }
+
+        @keyframes blinkError {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h1>Add Animal</h1>
+    <h3 th:text="${error}"></h3>
+    <form th:action="@{/animals/add}" th:object="${animal}" method="post">
+
+        <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" th:field="*{name}" required>
+            <span th:if="${#fields.hasErrors('name')}"
+                  th:errors="*{name}"
+                  class="error-message"></span>
+        </div>
+
+        <div>
+            <label for="description">Description</label>
+            <input type="text" id="description" th:field="*{description}" required>
+        </div>
+
+        <div class="btn-group">
+            <input type="submit" value="Add">
+            <input type="reset" value="Clear">
+        </div>
+
+    </form>
+</div>
+</body>
+</html>
