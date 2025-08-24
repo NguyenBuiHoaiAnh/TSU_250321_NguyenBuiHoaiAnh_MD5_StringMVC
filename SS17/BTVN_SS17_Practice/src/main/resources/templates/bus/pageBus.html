@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bus Pages</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: radial-gradient(circle at 20% 20%, #2b1055, transparent 70%),
+            radial-gradient(circle at 80% 30%, #7597de, transparent 60%),
+            radial-gradient(circle at 50% 80%, #1b2735, transparent 70%),
+            linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+            background-color: #0d0d2b; /* nền gốc đen đậm */
+            color: #fff;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hiệu ứng sao lấp lánh */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(2px 2px at 20% 30%, #fff, transparent),
+            radial-gradient(2px 2px at 70% 60%, #fff, transparent),
+            radial-gradient(2px 2px at 50% 80%, #fff, transparent),
+            radial-gradient(2px 2px at 90% 20%, #fff, transparent),
+            radial-gradient(2px 2px at 30% 70%, #fff, transparent);
+            background-repeat: no-repeat;
+            z-index: 0;
+            animation: twinkle 4s infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes twinkle {
+            0%   { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 40px;
+            background: linear-gradient(90deg, #8a2be2, #0f52ba, #20c997);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px #6d5dfc, 0 0 20px #6d5dfc;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(255,255,255,0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.1);
+            color: #00d4ff;
+            text-shadow: 0 0 10px #00d4ff;
+        }
+
+        td {
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        a {
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .add-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 8px 15px;
+            background: linear-gradient(45deg, #8a2be2, #20c997);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(138,43,226,0.7);
+        }
+
+        .add-btn:hover {
+            box-shadow: 0 0 15px rgba(32,201,151,0.9);
+        }
+
+        .action-links a {
+            margin: 0 8px;
+            color: #00d4ff;
+            text-shadow: 0 0 10px #00d4ff;
+        }
+
+        .action-links a:hover {
+            color: #ff4de3;
+            text-shadow: 0 0 12px #ff4de3;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #20c997;
+            text-shadow: 0 0 10px #20c997;
+        }
+
+        .back-link:hover {
+            color: #ff4de3;
+        }
+
+
+        @keyframes twinkle {
+            from { opacity: 0.2; transform: scale(1); }
+            to { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* Pagination */
+        .pagination {
+            margin-top: 30px;
+        }
+
+        .pagination a {
+            display: inline-block;
+            margin: 0 5px;
+            padding: 6px 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background: #ff6ec7;
+            transform: scale(1.1);
+        }
+
+        .pagination a.active {
+            background: linear-gradient(45deg, #00d4ff, #0f52ba);
+            box-shadow: 0 0 15px rgba(106,17,203,0.6);
+        }
+    </style>
+</head>
+<body>
+<h1>Bus Management</h1>
+<a th:href="@{/buses/add}" class="add-btn">Add Bus</a>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>License Plate</th>
+        <th>Capacity</th>
+        <th>TypeSeat</th>
+        <th>Actions</th>
+    </tr>
+
+    <tr th:each="p : ${pageBus}">
+        <td th:text="${p.id}"></td>
+        <td th:text="${p.licensePlate}"></td>
+        <td th:text="${p.capacity}"></td>
+        <td th:text="${p.typeSeat}"></td>
+
+        <td class="action-links">
+            <a th:href="@{/buses/edit/{id}(id=${p.id})}">Update</a>
+            <a th:href="@{/buses/delete/{id}(id=${p.id})}"
+               onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Delete</a>
+        </td>
+    </tr>
+</table>
+
+<div class="pagination">
+    <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+        <a th:href="@{/buses(page=${i})}" th:text="${i+1}"
+           th:classappend="${i == currentPage} ? 'active' : ''"></a>
+    </span>
+</div>
+
+<a th:href="@{/customers/admin}" class="back-link">Back to Page</a>
+
+</body>
+</html>

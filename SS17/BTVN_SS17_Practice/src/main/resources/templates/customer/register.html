@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffb347;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #ffb347, 0 0 20px #ffcc70;
+        }
+
+        form {
+            background: rgba(0, 0, 0, 0.75);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 179, 71, 0.6), 0 0 40px rgba(255, 204, 112, 0.5);
+            width: 350px;
+            backdrop-filter: blur(8px);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #ffcc70;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            background: #1e293b;
+            color: #ffffff;
+            font-size: 14px;
+            box-shadow: inset 0 0 5px rgba(255, 179, 71, 0.6);
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            background: #2c3e50;
+            box-shadow: 0 0 10px #ffb347, 0 0 20px #ffcc70;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background: linear-gradient(90deg, #ffb347, #ffcc70);
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            box-shadow: 0 0 20px #ffb347, 0 0 40px #ffcc70;
+            transform: scale(1.05);
+        }
+
+        small {
+            color: #ff6f61;
+            font-size: 12px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        a {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+            color: #70d6ff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        a:hover {
+            color: #ffcc70;
+            text-shadow: 0 0 5px #ffb347;
+        }
+
+        /* Hiệu ứng ngôi sao */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            background: transparent;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="stars">
+    <div class="star" style="top:10%; left:20%; animation-delay:0s;"></div>
+    <div class="star" style="top:30%; left:70%; animation-delay:1s;"></div>
+    <div class="star" style="top:60%; left:40%; animation-delay:2s;"></div>
+    <div class="star" style="top:80%; left:90%; animation-delay:1.5s;"></div>
+    <div class="star" style="top:50%; left:10%; animation-delay:0.5s;"></div>
+</div>
+
+<form th:action="@{/customers/registers}" th:object="${customer}" method="post">
+    <h1>Register</h1>
+    <h3 th:text="${error}"></h3>
+
+    <div>
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter username" th:field="*{username}">
+        <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small>
+    </div>
+
+    <div>
+        <label for="email">Email</label>
+        <input type="text" id="email" placeholder="Enter email" th:field="*{email}">
+        <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+    </div>
+
+    <div>
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" placeholder="Enter phone" th:field="*{phone}">
+        <small th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></small>
+    </div>
+
+    <div>
+        <label for="password">Password</label>
+        <input type="text" id="password" placeholder="Enter password" th:field="*{password}">
+        <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+    </div>
+
+    <div>
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="text" id="confirmPassword" placeholder="Enter confirm password" th:field="*{confirmPassword}">
+        <small th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></small>
+    </div>
+
+    <div>
+        <input type="submit" value="Register">
+    </div>
+
+    <div>
+        <a th:href="@{/customers}">Have an account? Click here</a>
+    </div>
+</form>
+
+</body>
+</html>

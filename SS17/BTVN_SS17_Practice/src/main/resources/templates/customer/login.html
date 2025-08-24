@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        /* Nền vũ trụ */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: radial-gradient(circle at bottom, #0b0c10, #1f2833);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Tạo các ngôi sao */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+            animation: starsMove 60s linear infinite;
+        }
+
+        @keyframes starsMove {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100px); }
+        }
+
+        /* Hộp form */
+        form {
+            background: rgba(20, 20, 40, 0.85);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 200, 255, 0.3);
+            backdrop-filter: blur(6px);
+            position: relative;
+            width: 350px;
+            text-align: center;
+
+            /* Hiệu ứng bay lên xuống */
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Viền ánh sáng dịu hơn */
+        form::after {
+            content: "";
+            position: absolute;
+            top: -4px; left: -4px; right: -4px; bottom: -4px;
+            border-radius: 18px;
+            background: linear-gradient(45deg, #00e5ff, #7a5cff, #00c3ff);
+            background-size: 200% 200%;
+            filter: blur(12px);
+            z-index: -1;
+            animation: glowing 8s ease infinite;
+        }
+
+        @keyframes glowing {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Tiêu đề */
+        h1 {
+            margin-bottom: 20px;
+            color: #00e5ff;
+            text-shadow: 0 0 12px #00e5ff;
+        }
+
+        h3 {
+            color: #a0bfff;
+            margin-bottom: 10px;
+        }
+
+        /* Input */
+        label {
+            display: block;
+            text-align: left;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            color: #cce6ff;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        input[type="text"]::placeholder,
+        input[type="password"]::placeholder {
+            color: #aaa;
+        }
+
+        /* Nút */
+        input[type="submit"] {
+            background: linear-gradient(45deg, #00e5ff, #007bff);
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background: linear-gradient(45deg, #7a5cff, #00c3ff);
+            transform: scale(1.05);
+        }
+
+        /* Link */
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            color: #00e5ff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #7a5cff;
+        }
+    </style>
+</head>
+<body>
+<form th:action="@{/customers/login}" th:object="${customerLogin}" method="post">
+    <h1>Login</h1>
+    <h3 th:text="${error}"></h3>
+
+    <div>
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter username" th:field="*{username}" required>
+        <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small>
+    </div>
+
+    <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter password" th:field="*{password}" required>
+        <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+    </div>
+
+    <div>
+        <input type="submit" value="Login">
+    </div>
+
+    <div>
+        <a th:href="@{/customers/registers}">Don't have account? Click here</a>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <style>
+        /* Nền vũ trụ */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: radial-gradient(circle at bottom, #0b0c10, #1f2833);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Hiệu ứng sao lấp lánh */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+            animation: starsMove 60s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes starsMove {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100px); }
+        }
+
+        /* Tiêu đề */
+        h1 {
+            font-size: 2.5rem;
+            color: #00e5ff;
+            text-shadow: 0 0 15px #00e5ff, 0 0 30px rgba(0,229,255,0.7);
+            margin-bottom: 40px;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        /* Nút menu */
+        a {
+            display: inline-block;
+            margin: 15px;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            color: #fff;
+            background: rgba(30, 30, 60, 0.8);
+            border-radius: 12px;
+            text-decoration: none;
+            box-shadow: 0 0 15px rgba(0, 200, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            background: linear-gradient(45deg, #00e5ff, #00ff95);
+            color: #000;
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.8);
+        }
+
+        /* Hiệu ứng bay nhẹ */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+<h1>Welcome to the page</h1>
+</body>
+</html>
